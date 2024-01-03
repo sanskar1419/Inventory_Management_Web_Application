@@ -3,8 +3,9 @@ import path from "path";
 import ProductsController from "./src/controllers/products.controller.js";
 
 const server = new express();
+server.set("view engine", "ejs");
+server.set("views", path.join(path.resolve(), "src", "views"));
 const productsController = new ProductsController();
-
 server.use(express.static("src/views"));
 
 server.get("/", productsController.getProducts);

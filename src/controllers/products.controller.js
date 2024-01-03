@@ -1,7 +1,8 @@
-import path from "path";
+import ProductModel from "../models/product.model.js";
 
 export default class ProductsController {
   getProducts(req, res) {
-    res.sendFile(path.join(path.resolve(), "src", "views", "products.html"));
+    let products = ProductModel.get();
+    res.render("products", { products: products });
   }
 }
