@@ -1,9 +1,12 @@
-const express = require("express");
+import express from "express";
+import path from "path";
 
 const server = new express();
 
+server.use(express.static("src/views"));
+
 server.get("/", (req, res) => {
-  res.send("Welcome to our Inventory Mangement application.");
+  res.sendFile(path.join(path.resolve(), "src", "views", "products.html"));
 });
 const port = 9000;
 server.listen(port, () => {
