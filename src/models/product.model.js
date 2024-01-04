@@ -10,6 +10,17 @@ export default class ProductModel {
   static get() {
     return products;
   }
+
+  static add(recievedProduct) {
+    let newProduct = new ProductModel(
+      products.length + 1,
+      recievedProduct.name,
+      recievedProduct.desc,
+      recievedProduct.price,
+      recievedProduct.imageUrl
+    );
+    products.push(newProduct);
+  }
 }
 
 var products = [
