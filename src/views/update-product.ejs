@@ -2,8 +2,16 @@
 <% if(errorMessage) { %>
 <div class="alert alert-danger" role="alert"><%= errorMessage%></div>
 <% } %>
-<form action="/" method="post">
+<form action="/update-product" method="post">
   <div class="mb-3">
+    <input
+      type="hidden"
+      class="form-control"
+      id="id"
+      name="id"
+      value="<%= product.id %>"
+      required
+    />
     <label for="name" class="form-label">Product Name</label>
     <input
       type="text"

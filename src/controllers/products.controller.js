@@ -29,4 +29,9 @@ export default class ProductsController {
       res.send("Product Not Found");
     }
   }
+  postUpdateProduct(req, res) {
+    ProductModel.update(req.body);
+    const products = ProductModel.get();
+    res.render("products", { products: products });
+  }
 }

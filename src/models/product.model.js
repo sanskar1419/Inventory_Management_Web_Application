@@ -25,6 +25,13 @@ export default class ProductModel {
   static getById(id) {
     return products.find((p) => p.id == id);
   }
+
+  static update(productObj) {
+    // console.log(productObj);
+    // console.log(productObj.id);
+    const index = products.findIndex((p) => p.id == productObj.id);
+    products[index] = productObj;
+  }
 }
 
 var products = [

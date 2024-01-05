@@ -19,6 +19,7 @@ server.get("/", productsController.getProducts);
 server.get("/new", productsController.newProductForm);
 server.post("/", formProductValidating, productsController.addNewProduct);
 server.get("/update-product/:id", productsController.getUpdateProductView);
+server.post("/update-product", productsController.postUpdateProduct);
 const port = 9000;
 server.listen(port, () => {
   console.log(`Server is up and running on the port :: ${port}`);
