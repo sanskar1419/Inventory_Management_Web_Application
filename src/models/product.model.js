@@ -11,6 +11,12 @@ export default class ProductModel {
     return products;
   }
 
+  static delete(id) {
+    const index = products.findIndex((p) => p.id === id);
+    // console.log(products);
+    products.splice(index, 1);
+  }
+
   static add(recievedProduct) {
     let newProduct = new ProductModel(
       products.length + 1,
