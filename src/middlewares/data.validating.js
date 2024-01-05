@@ -1,25 +1,28 @@
-const formProductValidating = (req, res, next) => {
+import { body, validationResult } from "express-validator";
+const formProductValidating = async (req, res, next) => {
   // Validating Data
-  const { name, price, imageUrl } = req.body;
-  let errors = [];
-  if (!name || name == "") {
-    errors.push("Name can't be Empty");
-  }
+  // 1. Define Rules for validation
+  const rules = [
+    body("name").isLength({ min: 1 }).withMessage("Name is Required"),
+    body("imageUrl").isURL().withMessage("Image URL is Missing or not valid"),
+    body("price")
+      .isFloat({ min: 1.0 })
+      .withMessage("Price should be greater than 1.0"),
+  ];
 
-  if (!price || parseFloat(price) < 1) {
-    errors.push("Price can't be Negative");
-  }
+  // 2. Run the Rules
 
-  try {
-    const parseUrl = new URL(imageUrl);
-  } catch (error) {
-    errors.push("Enter a valid image URL");
+  await Promise.all(rules.map((rule) => rule.run(req)));
+  let validationErrors = validationResult(req);
+  // console.log(validationErrors);
+  // 3. Check weather there are validation error or not
+  if (!validationErrors.isEmpty()) {
+    return res.render("new_product", {
+      errorMessage: validationErrors.array()[0].msg,
+    });
+  } else {
+    next();
   }
-  if (errors.length > 0) {
-    return res.render("new_product", { errorMessage: errors[0] });
-  }
-
-  next();
 };
 
 export default formProductValidating;
