@@ -6,6 +6,8 @@ import formProductValidating from "./src/middlewares/data.validating.js";
 
 const server = new express();
 
+server.use(express.static("public"));
+
 server.use(express.urlencoded({ extended: true }));
 server.set("view engine", "ejs");
 server.set("views", path.join(path.resolve(), "src", "views"));
@@ -20,7 +22,7 @@ server.get("/new", productsController.newProductForm);
 server.post("/", formProductValidating, productsController.addNewProduct);
 server.get("/update-product/:id", productsController.getUpdateProductView);
 server.post("/update-product", productsController.postUpdateProduct);
-server.get("/delete-product/:id", productsController.deleteProduct);
+server.post("/delete-product/:id", productsController.deleteProduct);
 const port = 9000;
 server.listen(port, () => {
   console.log(`Server is up and running on the port :: ${port}`);
