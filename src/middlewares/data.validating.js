@@ -4,7 +4,12 @@ const formProductValidating = async (req, res, next) => {
   // 1. Define Rules for validation
   const rules = [
     body("name").isLength({ min: 1 }).withMessage("Name is Required"),
-    body("imageUrl").isURL().withMessage("Image URL is Missing or not valid"),
+    body("imageUrl").custom((value, { req }) => {
+      if (!req.file) {
+        throw new Error("Image URL is Missing or not valid");
+      }
+      return true;
+    }),
     body("price")
       .isFloat({ min: 1.0 })
       .withMessage("Price should be greater than 1.0"),

@@ -3,6 +3,7 @@ import path from "path";
 import ProductsController from "./src/controllers/products.controller.js";
 import expressEjsLayouts from "express-ejs-layouts";
 import formProductValidating from "./src/middlewares/data.validating.js";
+import { uploadFile } from "./src/middlewares/update-product.middleware.js";
 
 const server = new express();
 
@@ -19,7 +20,12 @@ server.use(express.static("src/views"));
 const productsController = new ProductsController();
 server.get("/", productsController.getProducts);
 server.get("/new", productsController.newProductForm);
-server.post("/", formProductValidating, productsController.addNewProduct);
+server.post(
+  "/",
+  uploadFile.single("imageUrl"),
+  formProductValidating,
+  productsController.addNewProduct
+);
 server.get("/update-product/:id", productsController.getUpdateProductView);
 server.post("/update-product", productsController.postUpdateProduct);
 server.post("/delete-product/:id", productsController.deleteProduct);

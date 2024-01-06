@@ -11,7 +11,9 @@ export default class ProductsController {
   }
 
   addNewProduct(req, res) {
-    ProductModel.add(req.body);
+    const { name, desc, price } = req.body;
+    const imageUrl = "images/Products_Images/" + req.file.filename;
+    ProductModel.add(name, desc, price, imageUrl);
     let products = ProductModel.get();
     res.render("products", { products });
   }
