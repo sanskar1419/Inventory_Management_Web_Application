@@ -38,6 +38,16 @@ export default class ProductModel {
     const index = products.findIndex((p) => p.id == productObj.id);
     products[index] = productObj;
   }
+
+  static searchResult(name) {
+    const data = products.filter((product) => {
+      if (product.name == name) {
+        return product;
+      }
+    });
+
+    return data;
+  }
 }
 
 var products = [

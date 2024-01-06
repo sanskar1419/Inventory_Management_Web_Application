@@ -41,4 +41,10 @@ export default class ProductsController {
     // console.log(products);
     res.render("products", { products });
   }
+
+  search(req, res) {
+    const { name } = req.body;
+    const result = ProductModel.searchResult(name);
+    res.render("searchResult", { products: result });
+  }
 }

@@ -1,0 +1,40 @@
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      <th scope="col">Image</th>
+      <th scope="col">Operation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%if(products.length==0){%>
+    <div class="container my-2 text-danger">
+      <h1>Oops! No products matching your search were found</h1>
+    </div>
+    <%} else { %> <% products.forEach(product => { %>
+    <tr>
+      <th><%= product.id %></th>
+      <td><%= product.name %></td>
+      <td><%= product.desc %></td>
+      <td scope="col"><%= product.price %></td>
+      <td>
+        <img src="<%= product.imageURL %>" />
+      </td>
+      <td>
+        <a href="/update-product/<%= product.id %>" class="btn btn-warning"
+          >Update</a
+        >
+        <button
+          class="btn btn-danger"
+          onclick="deleteProduct('<%= product.id %>')"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+    <% }) %> <%}%>
+  </tbody>
+</table>
