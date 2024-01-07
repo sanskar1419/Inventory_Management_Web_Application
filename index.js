@@ -33,6 +33,9 @@ server.post("/update-product", productsController.postUpdateProduct);
 server.post("/delete-product/:id", productsController.deleteProduct);
 server.post("/search", productsController.search);
 server.get("/resister", userController.getResister);
+server.get("/login", userController.getLogIn);
+server.post("/register", userController.postRegister);
+server.post("/login", userController.postLogin);
 const port = 9000;
 server.listen(port, () => {
   console.log(`Server is up and running on the port :: ${port}`);
