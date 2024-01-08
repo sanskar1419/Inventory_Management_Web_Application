@@ -7,10 +7,13 @@ import expressEjsLayouts from "express-ejs-layouts";
 import formProductValidating from "./src/middlewares/data.validating.js";
 import { uploadFile } from "./src/middlewares/update-product.middleware.js";
 import { auth } from "./src/middlewares/auth.middleware.js";
+import cookieParser from "cookie-parser";
+import { setLastVisit } from "./src/middlewares/lastVisit.middleware.js";
 
 const server = new express();
 
 server.use(express.static("public"));
+server.use(cookieParser());
 server.use(
   session({
     secret: "Inventory",
@@ -19,6 +22,7 @@ server.use(
     cookie: { secure: false },
   })
 );
+server.use(setLastVisit);
 server.use(express.urlencoded({ extended: true }));
 server.set("view engine", "ejs");
 server.set("views", path.join(path.resolve(), "src", "views"));
