@@ -18,4 +18,11 @@ export default class UserModel {
   }
 }
 
-var users = [];
+var users = [
+  {
+    id: "1",
+    name: "Sanskar Gupta",
+    email: "sanskar1419@gmail.com",
+    password: "123456",
+  },
+];

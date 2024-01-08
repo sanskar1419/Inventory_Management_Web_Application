@@ -17,10 +17,24 @@ export default class UserController {
     const { email, password } = req.body;
     const user = UserModel.isValidUser(email, password);
     if (!user) {
-      return res.render("/login", { errorMessage: "Invalid Credential" });
+      return res.render("login", { errorMessage: "Invalid Credential" });
     } else {
+      req.session.userEmail = email;
       let products = ProductModel.get();
-      res.render("products", { products: products });
+      res.render("products", {
+        products: products,
+        userEmail: req.session.userEmail,
+      });
     }
+  }
+  logout(req, res) {
+    req.session.destroy((err) => {
+      if (err) {
+        console.log(err);
+        res.send("Error in Logging Out");
+      } else {
+        res.redirect("/login");
+      }
+    });
   }
 }
