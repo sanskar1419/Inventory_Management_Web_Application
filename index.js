@@ -22,7 +22,6 @@ server.use(
     cookie: { secure: false },
   })
 );
-server.use(setLastVisit);
 server.use(express.urlencoded({ extended: true }));
 server.set("view engine", "ejs");
 server.set("views", path.join(path.resolve(), "src", "views"));
@@ -33,7 +32,7 @@ server.use(express.static("src/views"));
 
 const productsController = new ProductsController();
 const userController = new UserController();
-server.get("/", auth, productsController.getProducts);
+server.get("/", setLastVisit, auth, productsController.getProducts);
 server.get("/new", auth, productsController.newProductForm);
 server.post(
   "/",
